@@ -1,5 +1,7 @@
 {
   "name": "imm-movie-app",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

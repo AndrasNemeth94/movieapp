@@ -1,0 +1,28 @@
+ion-content {
+  height: 100vh;
+  /*   border: 2px solid green; */
+}
+ion-row {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 50%;
+  /*   border: 2px solid red; */
+}
+ion-col {
+  display: flex;
+  width: 80%;
+  height: max-content;
+  /*   border: 2px solid blue; */
+}
+ion-input {
+  width: 60%;
+  border-bottom: 0.5px solid white;
+}
+ion-img {
+  height: 50%;
+  width: 50%;
+  margin: auto;
+  /*  border: 2px solid black; */
+}

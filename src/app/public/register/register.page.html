@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Register</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding ion-text-center">
+  <ion-item>
+    <ion-label position="floating">Enter firstname:</ion-label>
+    <ion-input
+      class="ion-padding"
+      type="text"
+      [(ngModel)]="userModel.firstName"
+    ></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Enter lastname:</ion-label>
+    <ion-input type="text" [(ngModel)]="userModel.lastName"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Enter email:</ion-label>
+    <ion-input type="email" [(ngModel)]="userModel.email"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Enter password:</ion-label>
+    <ion-input type="password" [(ngModel)]="userModel.password"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Confirm password:</ion-label>
+    <ion-input
+      (keyup)="onKeyUp($event)"
+      type="password"
+      name="repass"
+      [(ngModel)]="repass"
+    ></ion-input>
+  </ion-item>
+  <ion-button
+    type="button"
+    (click)="signUp()"
+    expand="block"
+    [disabled]="disableButton"
+    >Sign up</ion-button
+  >
+  <ion-button [routerLink]="['/login']" expand="block">LogIn</ion-button>
+</ion-content>

@@ -1,0 +1,43 @@
+ion-item {
+  float: right;
+  max-width: max-content;
+}
+/* ion-row {
+  border: 2px solid red;
+} */
+.row-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+/* ion-col {
+  border: 2px solid blue;
+} */
+.titles {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.add-btn {
+  width: 30%;
+  margin: auto;
+}
+.logout-btn {
+  float: right;
+}
+.exit-btn {
+  position: fixed;
+  top: 0;
+  right: 0;
+}
+ion-img {
+  max-width: 100%;
+  max-height: 50%;
+  border: 3px solid black;
+  border-radius: 3%;
+}
+ion-card-subtitle {
+  padding-top: 0.5em;
+}
+ion-card-subtitle {
+  color: white;
+}

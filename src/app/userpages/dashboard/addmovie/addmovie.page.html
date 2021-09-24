@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-button (click)="backToDashBoard()">Back</ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row>
+    <ion-col>
+      <ion-input disabled="true"> Added by {{firstName}} </ion-input>
+    </ion-col>
+    <ion-col>
+      <ion-input
+        placeholder="title"
+        type="text"
+        name="title"
+        [(ngModel)]="newMovie.title"
+      >
+      </ion-input>
+    </ion-col>
+    <ion-col>
+      <ion-input type="number" placeholder="year" [(ngModel)]="newMovie.year">
+      </ion-input>
+    </ion-col>
+
+    <ion-col>
+      <ion-input
+        type="number"
+        placeholder="imdb rating"
+        [(ngModel)]="newMovie.rate"
+      >
+      </ion-input>
+    </ion-col>
+    <ion-col>
+      <ion-input
+        type="text"
+        placeholder="description"
+        [(ngModel)]="newMovie.description"
+      >
+      </ion-input>
+    </ion-col>
+
+    <ion-col>
+      <ion-input
+        type="text"
+        placeholder="thumbnailURL"
+        [(ngModel)]="newMovie.thumbnailURL"
+        (ionChange)="watchThumbnailInput($event)"
+      >
+      </ion-input>
+    </ion-col>
+  </ion-row>
+  <!--img-->
+  <ion-row>
+    <ion-col>
+      <ion-img [src]="defaultImageSRC" alt="default-img"></ion-img>
+    </ion-col>
+  </ion-row>
+  <ion-button size="block" (click)="onSubmit()">Add</ion-button>
+</ion-content>
