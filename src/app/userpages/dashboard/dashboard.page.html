@@ -2,7 +2,7 @@
   <ion-toolbar>
     <!--toolabar row 1-->
     <ion-row class="row-buttons">
-      <ion-button (click)="sortMoviesBy()">{{sortstyle}}</ion-button>
+      <!-- <ion-button (click)="sortMoviesBy()">{{sortstyle}}</ion-button> -->
       <ion-button class="logout-btn" (click)="logout()">Logout</ion-button>
     </ion-row>
     <!--toolbar row 2-->
@@ -10,8 +10,8 @@
       <!--filter rating-->
       <ion-item>
         <ion-label> sort rate</ion-label>
+        <!--  disabled="{{isRateDisabled}}" -->
         <ion-select
-          disabled="{{isRateDisabled}}"
           [(ngModel)]="selectedRating"
           (ionChange)="watchRateSelection()"
         >
@@ -27,8 +27,8 @@
       <!--filter year-->
       <ion-item>
         <ion-label> sort year</ion-label>
+        <!-- disabled="{{isYearDisabled}}" -->
         <ion-select
-          disabled="{{isYearDisabled}}"
           [(ngModel)]="selectedYear"
           (ionChange)="watchYearSelection()"
         >
@@ -42,11 +42,10 @@
       </ion-item>
     </ion-row>
   </ion-toolbar>
-  <ion-button (click)="reload()">reload</ion-button>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ion-list *ngFor="let item of (movies) ">
+  <ion-list *ngFor="let item of (movies | async) ">
     <ion-card>
       <!--row 1-->
       <ion-row class="ion-align-items-center">

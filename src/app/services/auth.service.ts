@@ -13,13 +13,11 @@ export class AuthService {
   constructor(private router: Router, private movieService: MoviesService) {}
 
   userLogin(email: any, pw: any) {
-    console.log('userLogin(): ' + email + ',' + pw);
     const users: User[] = JSON.parse(localStorage.getItem('users'));
     let token = null;
     users.forEach((el) => {
       if (el.email === email && el.password === pw) {
         token = localStorage.setItem(tokenKey, `Bearer-Token-${el.firstName}`);
-        console.log('Token inserted');
       }
     });
     if (localStorage.getItem(tokenKey) != null) {
@@ -30,8 +28,11 @@ export class AuthService {
     }
   }
   userLogout() {
+    //clear storage
     localStorage.removeItem(tokenKey);
     localStorage.removeItem('movies');
+    //set default movies to storage
+    this.movieService.setMoviesInLocalStorage();
     this.authState = false;
     this.router.navigate(['login']);
   }

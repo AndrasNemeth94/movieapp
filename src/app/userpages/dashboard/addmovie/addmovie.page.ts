@@ -1,9 +1,7 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { Movie } from 'src/app/classes/movie';
 import { MoviesService } from 'src/app/services/movies.service';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-addmovie',
@@ -15,6 +13,7 @@ export class AddmoviePage implements OnInit {
     'https://www.freeiconspng.com/uploads/no-image-icon-13.png';
   firstName = localStorage.getItem('auth-token').slice(13);
   defaultImageSRC = this.defaultThumbnailURL;
+  //for ID generation
   storageLength = localStorage.getItem('movies').length;
   newMovie: Movie = new Movie(
     this.storageLength + 1,
@@ -27,22 +26,14 @@ export class AddmoviePage implements OnInit {
   );
   movies: Movie[];
 
-  showDescriptionErr = false;
-
   constructor(private router: Router, private movieService: MoviesService) {}
   backToDashBoard() {
     this.router.navigate(['userpages/dashboard']);
   }
 
   onSubmit() {
-    console.log('Add fired' + JSON.stringify(this.newMovie));
-    this.movies = JSON.parse(localStorage.getItem('movies'));
-    this.movies.push(this.newMovie);
+    this.movieService.addMovie(this.newMovie);
 
-    localStorage.removeItem('movies');
-    localStorage.setItem('movies', JSON.stringify(this.movies));
-
-    this.movieService.filterForUser(this.movies, 'year', 'ASC');
     return this.movies;
   }
   watchThumbnailInput($event) {

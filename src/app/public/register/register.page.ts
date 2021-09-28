@@ -9,21 +9,21 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class RegisterPage implements OnInit {
   userModel: User = new User('', '', '', '');
-  repass: string;
+  repass: string = null;
+  confirmed = true;
   disableButton = true;
   constructor(private authService: AuthService) {}
 
   onKeyUp(event: any) {
     this.repass = event.target.value;
     if (this.repass === this.userModel.password) {
-      console.log('Bingo!');
+      this.confirmed = true;
       this.disableButton = false;
     } else {
-      console.log('Its not the same!');
+      this.confirmed = false;
     }
   }
   signUp() {
-    console.log('repass' + this.repass);
     this.authService.signUpUser(this.userModel);
     this.authService.sendUserToDashboard();
   }

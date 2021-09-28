@@ -12,7 +12,6 @@ export class LoginPage implements OnInit {
   constructor(private authService: AuthService) {}
 
   checkUserData() {
-    console.log('SEnd this: ' + this.userEmail + ', ' + this.userPassword);
     this.authService.userLogin(this.userEmail, this.userPassword);
   }
   ngOnInit() {}

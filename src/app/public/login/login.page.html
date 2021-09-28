@@ -4,38 +4,64 @@
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding ion-text-center">
-  <ion-grid>
-    <ion-row>
-      <ion-col class="align-self-center" size="12">
-        <ion-label>Enter E-mail:</ion-label>
-        <ion-input
-          [(ngModel)]="userEmail"
-          name="email"
-          placeholder="xy@gmail.com"
-          type="email"
-          required
-        ></ion-input>
-      </ion-col>
-      <ion-col size="12">
-        <ion-label>Enter Password:</ion-label>
-        <ion-input
-          [(ngModel)]="userPassword"
-          name="password"
-          placeholder="***"
-          type="password"
-          required
-        ></ion-input>
-        <ion-col size="12"
-          ><ion-button (click)="checkUserData()" expand="block"
-            >Login</ion-button
-          ></ion-col
-        >
-        <ion-col size="12">
-          <ion-button [routerLink]="['/register']" expand="block"
-            >SignUp</ion-button
-          ></ion-col
-        >
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <form (ngSubmit)="checkUserData()">
+    <ion-item size="3">
+      <ion-input
+        expand="block"
+        [(ngModel)]="userEmail"
+        name="email"
+        #email="ngModel"
+        pattern="^[^@\s]+@[^@\s\.]+\.[^@\.\s]+$"
+        placeholder="xy@gmail.com"
+        type="email"
+        [class.is-invalid]="email.invalid && email.touched"
+        required
+      ></ion-input>
+    </ion-item>
+    <div *ngIf="email.errors && email.invalid || email.touched">
+      <ion-text
+        *ngIf=" email.touched && email.errors?.required"
+        style="color: red"
+        >Email is required!</ion-text
+      >
+      <ion-text
+        *ngIf="email.touched && email.errors?.pattern"
+        style="color: red"
+        >This is not an email!</ion-text
+      >
+    </div>
+    <ion-item>
+      <!--At least 8 characters: one large/one small letter, one num, one spec char -->
+      <ion-input
+        [(ngModel)]="userPassword"
+        #password="ngModel"
+        name="password"
+        pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"
+        placeholder="***"
+        type="password"
+        [class.is-invalid]="password.invalid && password.touched"
+        required
+      ></ion-input>
+    </ion-item>
+    <div *ngIf="password.errors && password.touched || password.invalid">
+      <ion-text
+        *ngIf="password.touched && password.errors.required"
+        style="color: red"
+        >Password is required!</ion-text
+      >
+      <ion-text
+        *ngIf="password.touched && password.errors.pattern"
+        style="color: red"
+        >Password should be at least 8 characters!</ion-text
+      >
+    </div>
+
+    <ion-button (click)="checkUserData()" expand="block" size="default"
+      >Login</ion-button
+    >
+
+    <ion-button [routerLink]="['/register']" expand="block" size="small"
+      >SignUp</ion-button
+    >
+  </form>
 </ion-content>
