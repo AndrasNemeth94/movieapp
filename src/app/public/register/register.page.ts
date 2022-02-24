@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/classes/user';
+import { FormBuilder } from '@angular/forms';
+
+//interfaces
+import { IUser } from 'src/app/interfaces/IUser.interface';
+
+//services
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -8,11 +13,16 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./register.page.scss'],
 })
 export class RegisterPage implements OnInit {
-  userModel: User = new User('', '', '', '');
+
+  userModel: IUser;
   repass: string = null;
   confirmed = true;
   disableButton = true;
-  constructor(private authService: AuthService) {}
+
+  constructor(
+    private authService: AuthService,
+    protected formBuilder: FormBuilder
+    ) {}
 
   onKeyUp(event: any) {
     this.repass = event.target.value;
@@ -27,5 +37,7 @@ export class RegisterPage implements OnInit {
     this.authService.signUpUser(this.userModel);
     this.authService.sendUserToDashboard();
   }
-  ngOnInit() {}
+  ngOnInit() {
+
+  }
 }
