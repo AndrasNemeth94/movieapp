@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core';
-import { Movie } from '../classes/movie';
-import { Observable, of, pipe } from 'rxjs';
-import { map, tap, filter } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+
+//interfaces
+import { IMovie } from '../interfaces/export-interfaces';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MoviesService {
-  movies: Observable<Movie[]>;
-  moviestoDelete: Movie[];
-  moviesToStorage: Movie[];
+  movies: Observable<IMovie[]>;
+  moviestoDelete: IMovie[];
+  moviesToStorage: IMovie[];
 
-  baseMovies: Movie[] = [
+  baseMovies: IMovie[] = [
     {
       id: 1,
       title: 'F&F2',
@@ -104,7 +105,7 @@ export class MoviesService {
     return this.movies;
   }
   //add new movie
-  addMovie(movie: Movie): Observable<Movie[]> {
+  addMovie(movie: IMovie): Observable<IMovie[]> {
     //push to array
     this.moviesToStorage.push(movie);
     //save movie to localstorage
@@ -117,7 +118,7 @@ export class MoviesService {
     return this.movies;
   }
   //delete sngle movie
-  deleteMovie(id: number): Observable<Movie[]> {
+  deleteMovie(id: number): Observable<IMovie[]> {
     //filter by user
     this.getAllMovies('Year', 'ASC');
     //delete
@@ -136,10 +137,10 @@ export class MoviesService {
 
   //username,year,rating filter func
   filterForUser(
-    movies: Observable<Movie[]>,
+    movies: Observable<IMovie[]>,
     sortStyle: string,
     selected: string
-  ): Observable<Movie[]> {
+  ): Observable<IMovie[]> {
     //observable to Movie[]
     movies.subscribe((data) => (this.moviesToStorage = data));
     //filter ASC and DESC based on year or rating
@@ -155,7 +156,7 @@ export class MoviesService {
   }
 
   //filter DESC&ASC by rate and year
-  filterMovies(movies: Movie[], sortStyle: string, selected: string): Movie[] {
+  filterMovies(movies: IMovie[], sortStyle: string, selected: string): IMovie[] {
     /*  console.log('filterMovies: ' + JSON.stringify(movies)); */
     if (sortStyle === 'Year') {
       if (selected === 'DESC') {
