@@ -1,67 +1,39 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Login</ion-title>
-  </ion-toolbar>
-</ion-header>
-<ion-content class="ion-padding ion-text-center">
-  <form (ngSubmit)="checkUserData()">
-    <ion-item size="3">
-      <ion-input
-        expand="block"
-        [(ngModel)]="userEmail"
-        name="email"
-        #email="ngModel"
-        pattern="^[^@\s]+@[^@\s\.]+\.[^@\.\s]+$"
-        placeholder="xy@gmail.com"
-        type="email"
-        [class.is-invalid]="email.invalid && email.touched"
-        required
-      ></ion-input>
-    </ion-item>
-    <div *ngIf="email.errors && email.invalid || email.touched">
-      <ion-text
-        *ngIf=" email.touched && email.errors?.required"
-        style="color: red"
-        >Email is required!</ion-text
-      >
-      <ion-text
-        *ngIf="email.touched && email.errors?.pattern"
-        style="color: red"
-        >This is not an email!</ion-text
-      >
-    </div>
-    <ion-item>
-      <!--At least 8 characters: one large/one small letter, one num, one spec char -->
-      <ion-input
-        [(ngModel)]="userPassword"
-        #password="ngModel"
-        name="password"
-        pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"
-        placeholder="***"
-        type="password"
-        [class.is-invalid]="password.invalid && password.touched"
-        required
-      ></ion-input>
-    </ion-item>
-    <div *ngIf="password.errors && password.touched || password.invalid">
-      <ion-text
-        *ngIf="password.touched && password.errors.required"
-        style="color: red"
-        >Password is required!</ion-text
-      >
-      <ion-text
-        *ngIf="password.touched && password.errors.pattern"
-        style="color: red"
-        >Password should be at least 8 characters!</ion-text
-      >
-    </div>
+<!-- <ion-header>
+  <ion-title>{{ pageTitle }}</ion-title>
+</ion-header> -->
 
-    <ion-button (click)="checkUserData()" expand="block" size="default"
-      >Login</ion-button
-    >
+<ion-content>
+  <ion-grid class='ion-align-items-center'>
+    <ion-row class='ion-align-items-center ion-justify-content-center'>
+      <ion-card>
+        <ion-card-content>
+          <form [formGroup]='loginForm'>
+            <ion-col class='ion-align-self-center' offset='2'>
+              <ion-item itemId='em' button (click)='showDescription()' detail>
+                <ion-label>Email:</ion-label>
+                <ion-input id='inputs.userEmail' name='email' formControlName='email' type='email' (ionChange)='trackInput($event)'></ion-input>
+              </ion-item>
+              <ng-container *ngIf='description'>
+                <ion-text color='red'>Email should be...</ion-text>
+              </ng-container>
+            </ion-col>
 
-    <ion-button [routerLink]="['/register']" expand="block" size="small"
-      >SignUp</ion-button
-    >
-  </form>
+            <ion-col offset='2'>
+              <ion-item itemId='pw' button (click)='showDescription()' detail>
+                <ion-label>Password:</ion-label>
+                <ion-input id='inputs.userPassword' name='password' formControlName='password' type='password' (ionChange)='trackInput($event)'></ion-input>
+              </ion-item>
+              <ng-container *ngIf='description'>
+                <ion-text color='red'>Password should be...</ion-text>
+              </ng-container>
+            </ion-col>
+
+            <ion-item-divider></ion-item-divider>
+            <ion-button shape='round' strong='true' color='success' (click)='submitForm()'>Login</ion-button>
+            <ion-button shape='round' strong='true' color='primary' (click)='relocate()'>Register</ion-button>
+            </form>
+          </ion-card-content>
+        </ion-card>
+    </ion-row>
+  </ion-grid>
 </ion-content>
