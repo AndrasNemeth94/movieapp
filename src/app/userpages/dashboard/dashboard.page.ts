@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
+import { Observable, of } from 'rxjs';
+
+//interfaces
+import { IMovie } from '../../interfaces/export-interfaces';
+
+//services
+import { AuthService } from 'src/app/services/auth.service';
 import { MoviesService } from 'src/app/services/movies.service';
-import { Movie } from '../../classes/movie';
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,11 +15,13 @@ import { switchMap } from 'rxjs/operators';
   styleUrls: ['./dashboard.page.scss'],
 })
 export class DashboardPage implements OnInit {
+
+  movies: Observable<IMovie[]>;
   filterOptionRating: string[] = ['ASC', 'DESC'];
   filterOptionYear: string[] = ['ASC', 'DESC'];
+
   selectedYear = 'ASC';
   selectedRating = 'ASC';
-  movies: Observable<Movie[]>;
 
   constructor(
     private authService: AuthService,

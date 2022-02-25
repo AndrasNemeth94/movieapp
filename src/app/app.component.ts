@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
+
+//interfaces
+import { IUser, IMovie } from './interfaces/export-interfaces';
+
+//services
 import { AuthService } from './services/auth.service';
-import { User } from './classes/user';
-import { Movie } from './classes/movie';
 import { MoviesService } from './services/movies.service';
 
 @Component({
@@ -10,7 +13,7 @@ import { MoviesService } from './services/movies.service';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  users: User[] = [
+  users: IUser[] = [
     {
       id: 1,
       firstName: 'Sara',
@@ -23,11 +26,11 @@ export class AppComponent {
       firstName: 'admin',
       lastName: 'admin',
       email: 'admin@gmail.com',
-      password: 'asD?1234',
+      password: 'Asd123??',
     },
   ];
 
-  movies: Movie[] = [
+  movies: IMovie[] = [
     {
       id: 1,
       title: 'F&F2',
@@ -94,6 +97,5 @@ export class AppComponent {
     private movieService: MoviesService
   ) {
     localStorage.setItem('users', JSON.stringify(this.users));
-    /* localStorage.setItem('movies', JSON.stringify(this.movies)); */
   }
 }

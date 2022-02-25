@@ -1,22 +1,33 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from '../classes/user';
+
+//interfaces
+import { IUser } from '../interfaces/export-interfaces';
+
+//services
 import { MoviesService } from './movies.service';
 
 const tokenKey = 'auth-token';
+
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  authState = false;
-  user: User;
-  constructor(private router: Router, private movieService: MoviesService) {}
 
-  userLogin(email: any, pw: any) {
-    const users: User[] = JSON.parse(localStorage.getItem('users'));
+  authState = false;
+  user: IUser;
+
+  constructor(
+    private router: Router,
+    private movieService: MoviesService
+    ) {}
+
+  userLogin(user: IUser) {
+    console.log('AuthService::userLogin() user: ', user);
+    const users: IUser[] = JSON.parse(localStorage.getItem('users'));
     let token = null;
     users.forEach((el) => {
-      if (el.email === email && el.password === pw) {
+      if (el.email === user.email && el.password === user.password) {
         token = localStorage.setItem(tokenKey, `Bearer-Token-${el.firstName}`);
       }
     });
@@ -50,8 +61,8 @@ export class AuthService {
     }
   }
 
-  signUpUser(user: User) {
-    const users: User[] = JSON.parse(localStorage.getItem('users'));
+  signUpUser(user: IUser) {
+    const users: IUser[] = JSON.parse(localStorage.getItem('users'));
     let errorMsg = '';
     users.forEach((el) => {
       if (el.email === user.email) {
