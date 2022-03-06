@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 //interfaces
@@ -28,7 +28,7 @@ export class LoginPage implements OnInit {
   constructor(
     private authService: AuthService,
     protected formBuilder: FormBuilder,
-    protected router: Router
+    protected route: Router
     ) {}
 
   ngOnInit() {
@@ -71,6 +71,6 @@ export class LoginPage implements OnInit {
   }
 
   relocate() {
-    this.router.navigate(['/register']);
+    this.route.navigate(['/register']);
   }
 }

@@ -38,6 +38,7 @@ export class AuthService {
       console.log('Error while logging in!');
     }
   }
+
   userLogout() {
     //clear storage
     localStorage.removeItem(tokenKey);
@@ -62,8 +63,10 @@ export class AuthService {
   }
 
   signUpUser(user: IUser) {
+
     const users: IUser[] = JSON.parse(localStorage.getItem('users'));
     let errorMsg = '';
+
     users.forEach((el) => {
       if (el.email === user.email) {
         errorMsg += 'email';
@@ -76,6 +79,7 @@ export class AuthService {
         }
       }
     });
+
     if (errorMsg === '') {
       users.push(user);
       localStorage.removeItem('users');
@@ -83,6 +87,7 @@ export class AuthService {
       this.user = user;
       localStorage.setItem('auth-token', `Bearer-Token-${this.user.firstName}`);
       this.authState = true;
+      this.sendUserToDashboard();
     }
     if (errorMsg !== '') {
       if (errorMsg.length > 10) {
