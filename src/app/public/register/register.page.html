@@ -1,142 +1,56 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Register</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content>
+  <ion-grid class='ion-align-items-center'>
+    <ion-row class='ion-align-items-center ion-justify-content-center'>
+      <ion-card>
+        <ion-card-content>
+          <form [formGroup]='registerForm'>
 
-<ion-content class="ion-padding ion-text-center">
-  <form (ngSubmit)="signUp()">
-    <!--firstName-->
-    <ion-item>
-      <ion-label position="floating">Enter firstname:</ion-label>
-      <ion-input
-        class="ion-padding"
-        type="text"
-        name="firstName"
-        #firstName="ngModel"
-        [(ngModel)]="userModel.firstName"
-        pattern="^([0-9]*[a-zA-Z]){3,}[0-9]*$"
-        [class.is-invalid]="firstName.touched && firstName.invalid"
-        required
-      ></ion-input>
-    </ion-item>
-    <div *ngIf="firstName.errors">
-      <ion-text
-        *ngIf="firstName.touched && firstName.errors.required"
-        style="color: red"
-        >firstName is required!</ion-text
-      >
-      <ion-text
-        *ngIf="firstName.touched && firstName.errors.pattern"
-        style="color: red"
-        >firstName should be at least 3 characters!</ion-text
-      >
-    </div>
-    <!--lastName-->
-    <ion-item>
-      <ion-label position="floating">Enter lastName:</ion-label>
-      <ion-input
-        class="ion-padding"
-        type="text"
-        name="lastName"
-        #lastName="ngModel"
-        [(ngModel)]="userModel.lastName"
-        pattern="^[a-zA-Z]{3,25}$"
-        [class.is-invalid]="lastName.touched && lastName.invalid"
-        required
-      ></ion-input>
-    </ion-item>
-    <div *ngIf="lastName.errors">
-      <ion-text
-        *ngIf="lastName.touched && lastName.errors.required"
-        style="color: red"
-        >lastName is required!</ion-text
-      >
-      <ion-text
-        *ngIf="lastName.touched && lastName.errors.pattern"
-        style="color: red"
-        >lastName should be at least 3 characters!</ion-text
-      >
-    </div>
-    <!--email-->
-    <ion-item>
-      <ion-label position="floating">Enter email:</ion-label>
-      <ion-input
-        class="ion-padding"
-        type="email"
-        name="email"
-        #email="ngModel"
-        [(ngModel)]="userModel.email"
-        pattern="^[^@\s]+@[^@\s\.]+\.[^@\.\s]+$"
-        [class.is-invalid]="email.touched && email.invalid"
-        required
-      ></ion-input>
-    </ion-item>
-    <div *ngIf="email.errors">
-      <ion-text
-        *ngIf="email.touched && email.errors.required"
-        style="color: red"
-        >Email is required!</ion-text
-      >
-      <ion-text *ngIf="email.touched && email.errors.pattern" style="color: red"
-        >This is not an email!</ion-text
-      >
-    </div>
-    <!--password-->
-    <ion-item>
-      <ion-label position="floating">Enter password:</ion-label>
-      <ion-input
-        class="ion-padding"
-        type="password"
-        name="password"
-        #password="ngModel"
-        [(ngModel)]="userModel.password"
-        pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"
-        [class.is-invalid]="password.touched && password.invalid"
-        required
-      ></ion-input>
-    </ion-item>
-    <div *ngIf="password.errors">
-      <ion-text
-        *ngIf="password.touched && password.errors.required"
-        style="color: red"
-        >Password is required!</ion-text
-      >
-      <ion-text
-        *ngIf="password.touched && password.errors.pattern"
-        style="color: red"
-        >Password should be at least 8 characters (small/large syllabels, one
-        spec character, one number)!</ion-text
-      >
-    </div>
-    <!--Confirm password-->
-    <ion-item>
-      <ion-label position="floating">Confirm password:</ion-label>
-      <ion-input
-        type="password"
-        name="repass"
-        (ionChange)="onKeyUp($event)"
-        required
-      ></ion-input>
-    </ion-item>
-    <div *ngIf="!this.confirmed">
-      <ion-text *ngIf=" !this.confirmed && repass === null" style="color: red"
-        >Password confirmation is required!</ion-text
-      >
-      <ion-text
-        *ngIf="!this.confirmed && repass !== this.userModel.password"
-        style="color: red"
-        >Password doesn't match!</ion-text
-      >
-    </div>
+            <ion-col class='ion-align-self-center' offset='2'>
+              <ion-item #emailButton button (click)='showDescription($event)' detail>
+                <ion-label>email:</ion-label>
+                <ion-input id='userModel.userEmail' name='email' formControlName='email' type='email' (ionChange)='trackInput($event)'></ion-input>
+              </ion-item>
+              <ng-container #emailDesc>
+                <ion-text color='red'>Email should be...</ion-text>
+              </ng-container>
+            </ion-col>
 
-    <ion-button
-      type="button"
-      (click)="signUp()"
-      expand="block"
-      size="default"
-      [disabled]="disableButton"
-      >Sign up</ion-button
-    >
-  </form>
+            <ion-col offset='2'>
+              <ion-item #pwButton button (click)='showDescription($event)' detail>
+                <ion-label>password:</ion-label>
+                <ion-input id='userModel.password' name='password' formControlName='password' type='password' (ionChange)='trackInput($event)'></ion-input>
+              </ion-item>
+              <ng-container #pwDesc>
+                <ion-text color='red'>Password should be...</ion-text>
+              </ng-container>
+            </ion-col>
+
+            <ion-col offset='2'>
+              <ion-item #pwButton button (click)='showDescription($event)' detail>
+                <ion-label>first name:</ion-label>
+                <ion-input id='userModel.firstName' name='firstName' formControlName='firstName' type='text' (ionChange)='trackInput($event)'></ion-input>
+              </ion-item>
+              <ng-container #firstNameDesc>
+                <ion-text color='red'>FirstName should be...</ion-text>
+              </ng-container>
+            </ion-col>
+
+            <ion-col offset='2'>
+              <ion-item #pwButton button (click)='showDescription($event)' detail>
+                <ion-label>last name:</ion-label>
+                <ion-input id='userModel.firstName' name='lastName' formControlName='lastName' type='text' (ionChange)='trackInput($event)'></ion-input>
+              </ion-item>
+              <ng-container #lastNameDesc>
+                <ion-text color='red'>Lastname should be...</ion-text>
+              </ng-container>
+            </ion-col>
+
+            <ion-item-divider></ion-item-divider>
+            <ion-button shape='round' strong='true' color='success' (click)='submitForm()'>Submit</ion-button>
+            <ion-button shape='round' strong='true' color='primary' (click)='back()'>Back</ion-button>
+            </form>
+          </ion-card-content>
+        </ion-card>
+    </ion-row>
+  </ion-grid>
 </ion-content>
